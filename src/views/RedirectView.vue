@@ -1,0 +1,8 @@
+<template>
+  <div>
+    <h1>Redirecting...</h1>
+  </div>
+</template>
+
+<style>
+</style>

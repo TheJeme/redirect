@@ -1,4 +1,5 @@
 <script setup>
+import copy from 'copy-to-clipboard';
 import { ref } from "vue";
 import { db } from "@/firebase";
 import { setDoc, doc } from "firebase/firestore"
@@ -20,7 +21,7 @@ function formatUrl(url) {
 
 async function createRedirect() {
   const formattedUrl = formatUrl(url.value);
-  
+
   if (!formattedUrl) {
     isInvalidUrl.value = true;
     return;
@@ -34,7 +35,9 @@ async function createRedirect() {
     });
 
     url.value = "";
-    id.value = _id
+    id.value = _id;
+
+    copy(`https://r.jeme.app/${_id}`)
   } catch (error) {
     console.error("Skill issue:", error);
   }
@@ -49,7 +52,8 @@ async function createRedirect() {
       <input type="submit" value="Create">
     </form>
     <p v-if="isInvalidUrl">Invalid URL</p>
-    <a :href="`https://r.jeme.app/${id}`" target="_blank" rel="noopener noreferrer" v-if="id">https://r.jeme.app/{{ id }}</a>
+    <a :href="`https://r.jeme.app/${id}`" target="_blank" rel="noopener noreferrer" v-if="id">https://r.jeme.app/{{ id
+      }}</a>
   </main>
 </template>
 
@@ -69,7 +73,7 @@ p {
 form {
   display: flex;
   gap: 1rem;
-  margin: 0 auto;
+  margin: 10px auto;
   justify-content: center;
 }
 
@@ -77,5 +81,4 @@ form {
   width: 100%;
   max-width: 220px;
 }
-
 </style>
